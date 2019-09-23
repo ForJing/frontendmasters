@@ -2,9 +2,28 @@
 
 "use strict";
 
-printHelp();
+const args = require("minimist")(process.argv.slice(2), {
+  boolean: ["help"],
+  string: ["file"]
+});
+
+if (args.help) {
+  printHelp();
+} else if (args.file) {
+  console.log(args.file);
+} else {
+  error("Incorrect usage", true);
+}
 
 // *******************
+
+function error(msg, includeHelp = false) {
+  console.error(msg);
+  if (includeHelp) {
+    console.log("");
+    printHelp();
+  }
+}
 
 function printHelp() {
   console.log("ex1 usage:");
